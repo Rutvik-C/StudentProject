@@ -65,10 +65,10 @@ class QuestionCreateView(LoginRequiredMixin, CreateView):
 
 
 def home_page(request):
-    return render(request, "main/base.html")
+    return render(request, "main/home.html")
     
 
-def login_student(request, username, password):
+def login_student(request):
     if request.method == "POST":
         username = request.POST.get("username")
         password = request.POST.get("password")
