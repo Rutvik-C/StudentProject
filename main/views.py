@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 from .models import *
 from django.http import HttpResponse
 from django.db import models
@@ -54,7 +55,7 @@ def StudentQuestionListView(request, pk):
         "questions": Question.objects.filter(student__pk=pk),
     }
     print("in student")
-    return render(request, "main/Student_Question_detail.html", context)
+    return render(request, "main/profile.html", context)
 
 
 def StudentAnswerListView(request, pk):
@@ -63,7 +64,7 @@ def StudentAnswerListView(request, pk):
         "answers": Answer.objects.filter(student__pk=pk),
     }
     print("in student")
-    return render(request, "main/Student_Answer_list.html", context)
+    return render(request, "main/profile_ans.html", context)
 
 
 class QuestionCreateView(LoginRequiredMixin, CreateView):
@@ -147,3 +148,25 @@ def register_student(request):
 def logout_student(request):
     logout(request)
     return redirect("home-page")
+
+
+@login_required
+def answer_question(request,question_pk):
+    if request.method == "POST":
+        description = request.POST.get("answer")
+
+        new_ans = Answer.objects.create(description = description,student = request.user, question= Question.objects.filter(pk = question_pk).first(),date_posted = datetime.datetime.now())
+        new_ans.save()
+
+    return redirect("Questions-list-view")
+    # redirect_to = "Question/" + str(question_pk) + "/"
+    # return redirect(redirect_to)
+
+
+def display_profile(request):
+    context = {
+        "student": Student.objects.filter(user__pk=pk).first(),
+        "questions": Question.objects.filter(student__pk=pk),
+    }
+    print("in student")
+    return render(request, "main/profile.html",context)

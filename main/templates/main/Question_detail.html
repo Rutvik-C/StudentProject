@@ -1,13 +1,5 @@
 {% extends "main/base.html" %} {% block content%}
 
-<h4>this is the quest</h4>
-<li>this is the main question: {{question.title}}</li>
-
-<h4>these are the answers</h4>
-{%for ans in answers%}
-<li>{{ans.description}}</li>
-
-{%endfor%}
 
 <div class="breadcrumb-section breadcrumb-bg">
     <div class="container">
@@ -15,7 +7,7 @@
             <div class="col-lg-8 offset-lg-2 text-center">
                 <div class="breadcrumb-text">
                     <p>Read the Details</p>
-                    <h1>Single Article</h1>
+                    <h1>Answers</h1>
                 </div>
             </div>
         </div>
@@ -33,9 +25,14 @@
                             <span class="author"><i class="fas fa-user"></i> {{question.student.username}}</span>
                             <span class="date"><i class="fas fa-calendar"></i>{{question.date_posted}}</span>
                         </p>
-                       {{question.description}}
                     </div>
-
+                    <h2>
+                        {{question.title}}
+                    </h2>
+                    <p>
+                        {{question.description}}
+                        
+                    </p>
                     <div class="comments-list-wrap">
 
 
@@ -56,26 +53,14 @@
                                 </div>
                                 
                                 <div class="comment-text-body">
-                                    <h4>{{ans.student.username}} <span class="comment-date">Aprl 26, 2020</span></h4>
-                                    <p>{{ans.description}}}</p>
+                                    <h4>{{ans.student.username}} <span class="comment-date"></span></h4>
+                                    <p>{{ans.description}}</p>
                                 </div>
                                 
                             </div>
                             {%endfor%}
 
-                            <div class="single-comment-body">
-                                <div class="comment-user-avater">
-                                    <img src="assets/img/avaters/avatar2.png" alt="">
-                                </div>
-                                <div class="comment-text-body">
-                                    <h4>Addy Aoe <span class="comment-date">May 12, 2020</span> <a
-                                            href="#">reply</a></h4>
-                                    <p>Nunc risus ex, tempus quis purus ac, tempor consequat ex. Vivamus sem magna,
-                                        maximus at est id, maximus aliquet nunc. Suspendisse lacinia velit a eros
-                                        porttitor, in interdum ante faucibus Suspendisse lacinia velit a eros
-                                        porttitor, in interdum ante faucibus.</p>
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>
 
@@ -83,11 +68,12 @@
                         <h4>Share your answer</h4>
                         <p>If you have a answer dont feel hesitate to write your opinion</p>
                         
-                        <form action="index.html">
-                            <p><textarea name="comment" id="comment" cols="30" rows="10"
+                        <form action="{% url 'answers' question.pk %}" method="POST">
+				            {% csrf_token %}
+                            <p><textarea name="answer" id="answer" cols="30" rows="10"
                                     placeholder="Your Message"></textarea></p>
+
                             <p><input type="submit" value="Submit"></p>
-                            
                         </form>
 
                     </div>
@@ -98,12 +84,12 @@
                     <div class="tag-section">
                         <h4>Tags</h4>
                         <ul>
-                            <li><a href="single-news.html">Apple</a></li>
-                            <li><a href="single-news.html">Strawberry</a></li>
-                            <li><a href="single-news.html">BErry</a></li>
-                            <li><a href="single-news.html">Orange</a></li>
-                            <li><a href="single-news.html">Lemon</a></li>
-                            <li><a href="single-news.html">Banana</a></li>
+                            <li><a href="single-news.html">Placement</a></li>
+                            <!-- <li><a href="single-news.html">Strawberry</a></li> -->
+                            <!-- <li><a href="single-news.html">BErry</a></li> -->
+                            <!-- <li><a href="single-news.html">Orange</a></li> -->
+                            <!-- <li><a href="single-news.html">Lemon</a></li> -->
+                            <li><a href="single-news.html">Operating system</a></li>
                         </ul>
                     </div>
                 </div>

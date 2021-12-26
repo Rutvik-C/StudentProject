@@ -92,13 +92,21 @@
 								</li>
 
 								{% if user.is_authenticated %}
-								<li><a href="news.html">Your Profile</a></li>
+								<li><a href="{%url 'profile' %}">Your Profile</a>
+									<ul class="sub-menu">
+										<li><a href="{% url 'Student-question-list' user.id %}">Questions you asked</a>
+										</li>
+										<li><a href="{% url 'Student-answer-list' user.id %}">Your answers</a></li>
+									</ul>
+								</li>
+
 								<li><a href="{% url 'logout' %}">Logout</a></li>
 								{% endif %}
 
 								<li>
 									<div class="header-icons">
-										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+										<a class="mobile-hide search-bar-icon" href="#"><i
+												class="fas fa-search"></i></a>
 									</div>
 								</li>
 							</ul>
@@ -135,7 +143,7 @@
 	{% block content %} {% endblock %}
 
 	<!-- features list section -->
-		
+
 
 	<!-- footer -->
 	<div class="footer-area">
@@ -144,7 +152,8 @@
 				<div class="col-lg-3 col-md-6">
 					<div class="footer-box about-widget">
 						<h2 class="widget-title">About us</h2>
-						<p>Our aim is to help students find answers, get help in projects and ultimately get referrals and land a good job</p>
+						<p>Our aim is to help students find answers, get help in projects and ultimately get referrals
+							and land a good job</p>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-6">
