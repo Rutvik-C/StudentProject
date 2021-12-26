@@ -9,6 +9,7 @@ urlpatterns = [
     path("new_job", new_job, name="new_job"),
     path("internship", internship, name="internship"),
     path("new_internship", new_internship, name="new_internship"),
+    path("new_referral", new_referral, name="new_referral"),
     path("ask_referrals", ask_referrals, name="ask_referrals"),
     path("login", login_student, name="login"),
     path("register", register_student, name="register"),

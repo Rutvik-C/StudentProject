@@ -215,3 +215,20 @@ def new_internship(request):
         return redirect("/internship")
     else:
         return render(request, 'main/new_internship.html')
+    
+
+def new_referral(request):
+    if request.method == 'POST':
+        company_name = request.POST.get("company_name")
+        position = request.POST.get("position")
+        job_id = request.POST.get("job_id")
+        newReferral = Referral.objects.create(company_name = company_name, posted_by = request.user, position = position, job_id = job_id, date_posted = datetime.datetime.now())
+        newReferral.save()
+        return redirect("/internship")
+    else:
+        return render(request, 'main/new_referral.html')
+    
+
+def give_referral(request):
+    all_referrals = Referral.object.all()
+    return render(request, 'main/give_referral.html', {"referrals": all_referrals})
