@@ -103,6 +103,7 @@ def register_student(request):
         username = request.POST.get("username")
         email = request.POST.get("email")
         university = request.POST.get("university")
+        year = request.POST.get("g_year")
         password = request.POST.get("password")
         password_again = request.POST.get("confirm_password")
 
@@ -118,7 +119,26 @@ def register_student(request):
             messages.error(request, "E-Mail taken")
             return redirect("register")
 
-        # Here
+        new_user = User.objects.create_user(username=username, email=email, password=password)
+        new_user.save()
+
+        if University.objects.filter(name=university).exists():
+            university_obj = University.objects.filter(name=university).first()
+
+        else:
+            university_obj = University(name=university)
+            university_obj.save()
+
+        new_student = Student(
+            user=new_user,
+            university=university_obj,
+            graduation_year=year
+        )
+        new_student.save()
+
+        login(request, new_user)
+
+        return redirect("home-page")
 
     else:
         return render(request, "main/register.html")

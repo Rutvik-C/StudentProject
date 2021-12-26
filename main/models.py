@@ -11,6 +11,7 @@ class University(models.Model):
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     university = models.ForeignKey(University, on_delete=models.CASCADE)
+    graduation_year = models.IntegerField(default=2023)
 
 
 class Question(models.Model):
