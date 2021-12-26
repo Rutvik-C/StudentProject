@@ -1,0 +1,5 @@
+{% extends "main/base.html" %} {% block content%}
+            {% for item in Question %}
+				<li>{{item.title}}</li>
+			{% endfor %}
+      {% endblock content%}

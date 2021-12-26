@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.contrib.auth.models import User
 import datetime
@@ -15,7 +16,7 @@ class Student(models.Model):
 class Question(models.Model):
     title = models.CharField(max_length=500)
     description = models.TextField()
-    image = models.ImageField(upload_to='mainapp/question_images/')
+    image = models.ImageField(upload_to='mainapp/question_images/', null=True)
     student = models.ForeignKey(User, on_delete=models.CASCADE)
     date_posted = models.DateTimeField(default=datetime.datetime.now)
     
@@ -23,7 +24,7 @@ class Question(models.Model):
 class Answer(models.Model):
     question = models.ForeignKey(Question,on_delete=models.CASCADE)
     description = models.TextField()
-    image = models.ImageField(upload_to='mainapp/question_images/')
+    image = models.ImageField(upload_to='mainapp/question_images/', null=True)
     student = models.ForeignKey(User, on_delete=models.CASCADE)
     date_posted = models.DateTimeField(default=datetime.datetime.now())
 
