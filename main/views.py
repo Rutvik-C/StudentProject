@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import * 
+from .models import *
 from django.http import HttpResponse
 from django.db import models
 from django.contrib.auth.models import User
@@ -15,8 +15,9 @@ from django.views.generic import (
     CreateView,
     UpdateView,
     DeleteView,
-    UpdateView
+    UpdateView,
 )
+
 # Create your views here.
 
 # class UserQuestionListView(ListView):
@@ -35,29 +36,39 @@ from django.views.generic import (
 class QuestionListView(ListView):
     model = Question
     # <app>/<model>_<viewtype>.html
-    context_object_name = 'Question'
-    ordering = ['-date_posted']
+    context_object_name = "Question"
+    ordering = ["-date_posted"]
 
 
-
-def QuestionDetailView(request,pk):
+def QuestionDetailView(request, pk):
     context = {
-        'question': Question.objects.filter(pk = pk).first(),
-        'answers': Answer.objects.filter(question__pk =pk)
+        "question": Question.objects.filter(pk=pk).first(),
+        "answers": Answer.objects.filter(question__pk=pk),
     }
-    return render(request, 'main/Question_detail.html', context)
+    return render(request, "main/Question_detail.html", context)
 
-def StudentQuestionListView(request,pk):
+
+def StudentQuestionListView(request, pk):
     context = {
-        'student': Student.objects.filter(user__pk =pk).first(),
-        'questions': Question.objects.filter(student__pk =pk),
+        "student": Student.objects.filter(user__pk=pk).first(),
+        "questions": Question.objects.filter(student__pk=pk),
     }
     print("in student")
-    return render(request, 'main/Student_Question_detail.html', context)
+    return render(request, "main/Student_Question_detail.html", context)
+
+
+def StudentAnswerListView(request, pk):
+    context = {
+        "student": Student.objects.filter(user__pk=pk).first(),
+        "answers": Answer.objects.filter(student__pk=pk),
+    }
+    print("in student")
+    return render(request, "main/Student_Answer_list.html", context)
+
 
 class QuestionCreateView(LoginRequiredMixin, CreateView):
     model = Question
-    fields = ['title', 'description']
+    fields = ["title", "description"]
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -66,7 +77,7 @@ class QuestionCreateView(LoginRequiredMixin, CreateView):
 
 def home_page(request):
     return render(request, "main/home.html")
-    
+
 
 def login_student(request):
     if request.method == "POST":
@@ -116,4 +127,3 @@ def register_student(request):
 def logout_student(request):
     logout(request)
     return redirect("home-page")
-
