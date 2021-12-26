@@ -31,6 +31,26 @@ class Answer(models.Model):
 
 
 
+class Job(models.Model):
+    company_name = models.CharField(max_length=500)
+    position = models.CharField(max_length=30)
+    link = models.URLField(null=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    date_posted = models.DateField(default=datetime.datetime.now())
+    
+
+class Internship(models.Model):
+    company_name = models.CharField(max_length=500)
+    position = models.CharField(max_length=30)
+    appln_form = models.URLField(null=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    date_posted = models.DateField(default=datetime.datetime.now())
+    duration = models.CharField(max_length=20)
+    batches_allowed = models.CharField(max_length=50)
+    stipend = models.CharField(max_length=50)
+
+
+
 
 # class Project(models.Model):
 #     pass

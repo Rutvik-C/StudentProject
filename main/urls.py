@@ -5,6 +5,11 @@ from .views import *
 
 urlpatterns = [
     path("", home_page, name="home-page"),
+    path("jobs", jobs, name="jobs"),
+    path("new_job", new_job, name="new_job"),
+    path("internship", internship, name="internship"),
+    path("new_internship", new_internship, name="new_internship"),
+    path("ask_referrals", ask_referrals, name="ask_referrals"),
     path("login", login_student, name="login"),
     path("register", register_student, name="register"),
     path("answers/<int:question_pk>/", answer_question, name="answers"),
@@ -22,6 +27,11 @@ urlpatterns = [
         StudentAnswerListView,
         name="Student-answer-list",
     ),
+
+
+    # path("jobs", )
+
+
     # path('about/', views.about, name="books-about"),
 ]
 

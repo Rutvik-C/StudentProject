@@ -170,3 +170,48 @@ def display_profile(request):
     }
     print("in student")
     return render(request, "main/profile.html",context)
+
+
+def jobs(request):
+    jobs = Job.objects.all()
+    return render(request, "main/jobs.html", {'jobs':jobs})
+
+
+def internship(request):
+    internships = Internship.objects.all()
+    return render(request, "main/internship.html", {'internships': internships})
+
+
+def ask_referrals(request):
+    return render(request, "main/ask_referrals.html")
+
+def new_job(request):
+    if request.method == 'POST':
+        company_name = request.POST.get("company_name")
+        position = request.POST.get("position")
+        link = request.POST.get("link")
+        print(company_name, position, link)
+        newJob = Job.objects.create(company_name = company_name, author = request.user, position = position, link = link, date_posted = datetime.datetime.now())
+        newJob.save()
+        return redirect("/jobs")
+        # duration = request.POST.get("duration")
+        # stipend = request.POST.get("stipend")
+        # allowed_batch = request.POST.get("allowed_batch")
+    else:
+        return render(request, 'main/new_job.html')
+    
+
+def new_internship(request):
+    if request.method == 'POST':
+        company_name = request.POST.get("company_name")
+        position = request.POST.get("position")
+        link = request.POST.get("link")
+        print(company_name, position, link)
+        duration = request.POST.get("duration")
+        stipend = request.POST.get("stipend")
+        allowed_batch = request.POST.get("allowed_batch")
+        newInternship = Internship.objects.create(duration = duration, stipend = stipend, batches_allowed = allowed_batch ,company_name = company_name, author = request.user, position = position, appln_form = link, date_posted = datetime.datetime.now())
+        newInternship.save()
+        return redirect("/internship")
+    else:
+        return render(request, 'main/new_internship.html')
