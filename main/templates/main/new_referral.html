@@ -5,7 +5,7 @@
     <div class="row">
       <div class="col-lg-8 offset-lg-2 text-center">
         <div class="breadcrumb-text">
-          <h1>New Internship</h1>
+          <h1>Ask Referral</h1>
           <br />
         </div>
       </div>
@@ -21,31 +21,22 @@
 >
   <div class="card-body">
     <div class="billing-address-form">
-      {% comment %} {% for message in messages %}
+      {% for message in messages %}
       <div class="alert alert-secondary" role="alert">{{message}}</div>
-      {% endfor %} {% endcomment %}
-      <form method="post" action="{% url 'new_internship' %}">
+      {% endfor %}
+
+      <form method="post" action="{% url 'new_referral' %}">
         {% csrf_token %} Company Name <br />
         <p>
           <input name="company_name" type="text" placeholder="Company Name" />
         </p>
         Position<br />
         <p><input name="position" type="text" placeholder="Position" /></p>
-        Link<br />
+        JobID<br />
+        <p><input name="job_id" type="text" placeholder="JobID" /></p>
+        Resume Link<br />
         <p><input name="link" type="url" placeholder="Link" /></p>
-        Duration<br />
-        <p><input name="duration" type="number" placeholder="Duration" /></p>
-        Allowed Batch<br />
-        <p>
-          <input
-            name="allowed_batch"
-            type="text"
-            placeholder="Allowed Batches"
-          />
-        </p>
-        Stipend<br />
-        <p><input name="stipend" type="number" placeholder="stipend" /></p>
-        <p><input class="boxed-btn black" type="submit" value="Register" /></p>
+        <p><input class="boxed-btn black" type="submit" value="Request" /></p>
       </form>
     </div>
   </div>

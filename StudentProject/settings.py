@@ -124,3 +124,10 @@ MEDIA_URL = "/media/"
 
 LOGIN_URL = "/login"
 LOGIN_REDIRECT_URL = ""
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "recommendora@gmail.com"
+EMAIL_HOST_PASSWORD = "Hello@123"
+DEFAULT_FROM_EMAIL = 'One Stop <recommendora@gmail.com>'

@@ -59,8 +59,8 @@
 					<div class="main-menu-wrap">
 						<!-- logo -->
 						<div class="site-logo">
-							<a href="index.html">
-								<img src="{% static 'main/img/logo.png' %}" alt="">
+							<a href="{% url 'home-page' %}">
+								<img src="{% static 'main/img/logo.jpg' %}" alt="">
 							</a>
 						</div>
 						<!-- logo -->
@@ -68,20 +68,19 @@
 						<!-- menu start -->
 						<nav class="main-menu">
 							<ul>
-								<li class="current-list-item"><a href="#">Home</a>
+								<li class="current-list-item"><a href="{% url 'home-page' %}">Home</a>
 								</li>
 
 								<li><a href="{% url 'Questions-list-view' %}">Question</a>
 									<ul class="sub-menu">
-										<li><a href="{% url 'Questions-list-view' %}">All</a></li>
-										<li><a href="checkout.html">Answered</a></li>
-										<li><a href="single-product.html">Not Answered</a></li>
+										<li><a href="{% url 'new_question' %}">Post Question</a></li>
+										<li><a href="{% url 'Questions-list-view' %}">View Questions</a></li>
 									</ul>
 								</li>
 								<li><a href="#">Referral</a>
 									<ul class="sub-menu">
-										<li><a href="{% url 'ask_referrals' %}">Ask for Referral</a></li>
-										<li><a href="#">Give Referral</a></li>
+										<li><a href="{% url 'new_referral' %}">Ask for Referral</a></li>
+										<li><a href="{% url 'give_referral' %}">Give Referral</a></li>
 									</ul>
 								</li>
 								<li><a href="news.html">Hiring alert</a>
@@ -162,21 +161,23 @@
 					<div class="footer-box get-in-touch">
 						<h2 class="widget-title">Get in Touch</h2>
 						<ul>
-							<li>34/8, East Hukupara, Gifirtok, Sadan.</li>
-							<li>support@fruitkha.com</li>
-							<li>+00 111 222 3333</li>
+							<li>304, SG-46, Bhavans Chamber</li>
+							<li>support@onestop.com</li>
+							<li>+91 9927843269</li>
 						</ul>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-6">
 					<div class="footer-box pages">
-						<h2 class="widget-title">Pages</h2>
+						<h2 class="widget-title">Links</h2>
 						<ul>
-							<li><a href="index.html">Home</a></li>
-							<li><a href="about.html">About</a></li>
-							<li><a href="services.html">Shop</a></li>
-							<li><a href="news.html">News</a></li>
-							<li><a href="contact.html">Contact</a></li>
+							<li><a href="{% url 'home-page' %}">Home</a></li>
+							{% if user.is_authenticated %}
+							<li><a href="{% url 'logout' %}">Logout</a></li>
+							{% else %}
+							<li><a href="{% url 'login' %}">Login</a></li>
+							<li><a href="{% url 'register' %}">Register</a></li>
+							{% endif %}
 						</ul>
 					</div>
 				</div>
@@ -200,7 +201,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6 col-md-12">
-					<p>Copyrights &copy; 2019 - Adwait | Rutvik | Shubham | Yash</a>, All Rights Reserved.</p>
+					<p>Copyrights &copy; 2021 - Adwait | Rutvik | Shubham | Yash</a>, All Rights Reserved.</p>
 				</div>
 				<div class="col-lg-6 text-right col-md-12">
 					<div class="social-icons">

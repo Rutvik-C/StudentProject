@@ -6,14 +6,15 @@ from .views import *
 urlpatterns = [
     path("", home_page, name="home-page"),
     path("jobs", jobs, name="jobs"),
+    path("new_question", new_question, name="new_question"),
     path("new_job", new_job, name="new_job"),
+    path("confirm_referral/<int:pk>", confirm_referral, name="confirm_referral"),
     path("internship", internship, name="internship"),
     path("new_internship", new_internship, name="new_internship"),
     path("new_referral", new_referral, name="new_referral"),
-    path("ask_referrals", ask_referrals, name="ask_referrals"),
+    path("give_referral", give_referral, name="give_referral"),
     path("login", login_student, name="login"),
     path("register", register_student, name="register"),
-    path("answers/<int:question_pk>/", answer_question, name="answers"),
     path("profile", display_profile, name="profile"),
     path("logout", logout_student, name="logout"),
     path("Questions", QuestionListView.as_view(), name="Questions-list-view"),
@@ -29,6 +30,8 @@ urlpatterns = [
         name="Student-answer-list",
     ),
 
+    path("answers/<int:question_pk>/", answer_question, name="answers"),
+    path("add_question/", add_question, name="add_question"),
 
     # path("jobs", )
 

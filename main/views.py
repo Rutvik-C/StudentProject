@@ -8,6 +8,11 @@ from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.contrib.auth.models import User
+from django.db.models import Q
+from django.core.mail import send_mail
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+from StudentProject import settings
 from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import (
@@ -224,11 +229,71 @@ def new_referral(request):
         job_id = request.POST.get("job_id")
         newReferral = Referral.objects.create(company_name = company_name, posted_by = request.user, position = position, job_id = job_id, date_posted = datetime.datetime.now())
         newReferral.save()
-        return redirect("/internship")
+
+        messages.success(request, "Request posted successfully")
+
+        return redirect("new_referral")
     else:
         return render(request, 'main/new_referral.html')
     
 
 def give_referral(request):
-    all_referrals = Referral.object.all()
+    all_referrals = Referral.objects.filter(status=False).filter(~Q(posted_by=request.user))
     return render(request, 'main/give_referral.html', {"referrals": all_referrals})
+
+
+def add_question(request):
+    if request.method == "POST":
+        title = request.POST.get("question_title")
+        description = request.POST.get("question_description")
+
+        new_question = Question.objects.create(title = title,description = description,student = request.user,date_posted = datetime.datetime.now())
+        new_question.save()
+
+    return redirect("Questions-list-view")
+
+
+def send_mail(subject, html_template, user, context):
+    subject = subject
+    html_template = html_template
+    to_email = user.email
+    from_email=settings.DEFAULT_FROM_EMAIL
+    html_message = render_to_string(html_template, context)
+    message = EmailMessage(subject, html_message, from_email, [to_email])
+    message.content_subtype = 'html' 
+    message.send()
+
+
+
+def confirm_referral(request, pk):
+    if request.method == "POST":
+        message = request.POST.get("r_message")
+
+        curr_referral = Referral.objects.get(pk=pk)
+
+
+        # Send mail
+        send_mail(subject="Congrats, Referral Recieved!", html_template="main/mail_referral.html", user=curr_referral.posted_by, context={'msg':message, 'ref':curr_referral, 'giver':request.user})
+        # send to: posted_by
+        # sender: we
+        # referral giver: current user
+        curr_referral.status = True
+        curr_referral.save()
+
+    return redirect("give_referral")    
+
+
+def new_question(request):
+    if request.method == "POST":
+        title = request.POST.get("question_title")
+        description = request.POST.get("question_description")
+
+        new_question = Question.objects.create(title = title,description = description,student = request.user,date_posted = datetime.datetime.now())
+        new_question.save()
+    
+        messages.success(request, "Question posted successfully")
+        return redirect("new_question")
+
+    else:
+        return render(request, "main/new_question.html")
+

@@ -54,6 +54,7 @@ class Referral(models.Model):
     company_name = models.CharField(max_length=500)
     position = models.CharField(max_length=30)
     job_id = models.CharField(max_length=100)
+    link = models.URLField()
     posted_by = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.BooleanField(default=False)
     date_posted = models.DateField(default=datetime.datetime.now())
