@@ -14,7 +14,6 @@
 	<title>Student Portal</title>
 
 	<!-- favicon -->
-	<link rel="shortcut icon" type="image/png" href="{% static 'main/img/favicon.png' %}">
 	<!-- google font -->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
@@ -83,7 +82,7 @@
 										<li><a href="{% url 'give_referral' %}">Give Referral</a></li>
 									</ul>
 								</li>
-								<li><a href="news.html">Hiring alert</a>
+								<li><a href="{% url 'jobs' %}">Hiring alert</a>
 									<ul class="sub-menu">
 										<li><a href="{% url 'jobs' %}">Jobs</a></li>
 										<li><a href="{% url 'new_job' %}">Post Jobs</a></li>
@@ -93,7 +92,7 @@
 								</li>
 
 								{% if user.is_authenticated %}
-								<li><a href="{%url 'profile' %}">Your Profile</a>
+								<li><a href="{% url 'Student-question-list' user.id %}">Your Profile</a>
 									<ul class="sub-menu">
 										<li><a href="{% url 'Student-question-list' user.id %}">Questions you asked</a>
 										</li>
@@ -130,9 +129,12 @@
 					<span class="close-btn"><i class="fas fa-window-close"></i></span>
 					<div class="search-bar">
 						<div class="search-bar-tablecell">
-							<h3>Search For:</h3>
-							<input type="text" placeholder="Keywords">
-							<button type="submit">Search <i class="fas fa-search"></i></button>
+							{% csrf_token %}
+							<form action="{%url 'question_search'%}" method="get">
+								<h3>Search For:</h3>
+								<input name="question_search" type="text" placeholder="Keywords">
+								<button type="submit">Search <i class="fas fa-search"></i></button>
+							</form>
 						</div>
 					</div>
 				</div>

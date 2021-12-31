@@ -29,13 +29,10 @@ urlpatterns = [
         StudentAnswerListView,
         name="Student-answer-list",
     ),
-
     path("answers/<int:question_pk>/", answer_question, name="answers"),
     path("add_question/", add_question, name="add_question"),
-
+    path("questions/search/", search, name="question_search"),
     # path("jobs", )
-
-
     # path('about/', views.about, name="books-about"),
 ]
 

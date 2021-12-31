@@ -17,7 +17,7 @@
 							<h1>Student Portal</h1>
 							{% if user.is_authenticated %}
 							<div class="hero-btns">
-								<a href="shop.html" class="boxed-btn">Your Profile</a>
+								<a href="{% url 'Student-question-list' user.id %}" class="boxed-btn">Your Profile</a>
 								<a href="{% url 'logout' %}" class="bordered-btn">Logout</a>
 							</div>
 
